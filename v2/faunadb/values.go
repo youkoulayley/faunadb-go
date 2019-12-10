@@ -24,7 +24,7 @@ The At method uses field extractors to traverse the data to specify a field:
 	profile, _ := client.Query(RefCollection(Collection("profile), "43"))
 	profile.At(ObjKey("emails").AtIndex(0)).Get(&firstEmail)
 
-For more information, check https://app.fauna.com/documentation/reference/queryapi#simple-type.
+For more information, check https://docs.fauna.com/fauna/current/api/fql/types.
 */
 type Value interface {
 	Expr
