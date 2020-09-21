@@ -1094,6 +1094,9 @@ func (s *ClientTestSuite) TestEvalLTrimExpression() {
 func (s *ClientTestSuite) TestEvalRepeatExpression() {
 	var res string
 
+	s.queryAndDecode(f.Repeat("a string "), &res)
+	s.Require().Equal("a string a string ", res)
+
 	s.queryAndDecode(f.Repeat("ABC ", 3), &res)
 	s.Require().Equal("ABC ABC ABC ", res)
 }

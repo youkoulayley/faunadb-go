@@ -309,12 +309,21 @@ func (fn lTrimFn) String() string { return printFn(fn) }
 //  string - A string concatendanted the specified number of times
 //
 // See: https://app.fauna.com/documentation/reference/queryapi#string-functions
-func Repeat(str, number interface{}) Expr { return repeatFn{Repeat: wrap(str), Number: wrap(number)} }
+func Repeat(str interface{}, number ...interface{}) Expr {
+	switch len(number) {
+	case 0:
+		return repeatFn{Repeat: wrap(str)}
+	case 1:
+		return repeatFn{Repeat: wrap(str), Number: wrap(number[0])}
+	default:
+		panic("Repeat() accepts between 1 and 2 arguments.")
+	}
+}
 
 type repeatFn struct {
 	fnApply
 	Repeat Expr `json:"repeat"`
-	Number Expr `json:"number"`
+	Number Expr `json:"number,omitempty" faunarepr:"optarg"`
 }
 
 func (fn repeatFn) String() string { return printFn(fn) }

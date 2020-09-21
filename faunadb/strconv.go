@@ -72,7 +72,13 @@ func printFn(fn interface{}) string {
 					}
 					sbOpt.WriteString(")")
 				}
-
+			case "optarg":
+				if (v != NullV{}) {
+					if sbArgs.Len() > 0 {
+						sbArgs.WriteString(", ")
+					}
+					sbArgs.WriteString(v.String())
+				}
 			case "varargs":
 				if reflect.TypeOf(v).ConvertibleTo(reflect.TypeOf(unescapedArr{})) {
 					nestedArgs := reflect.ValueOf(v).Interface().(unescapedArr)
